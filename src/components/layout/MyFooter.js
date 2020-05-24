@@ -2,11 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 const MyFooter = ({ author, year }) => {
-  const defaultProps = {
-    author: 'Bob Cobb',
-    year: 2020
-  }
-
   return (
     <div className='my-footer'>
       {`written by ${author}. © ${year}`}
