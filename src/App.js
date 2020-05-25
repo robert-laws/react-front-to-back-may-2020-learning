@@ -6,6 +6,7 @@ import './App.scss';
 import Navbar from './components/layout/Navbar';
 import MyFooter from './components/layout/MyFooter';
 import Users from './components/users/Users';
+import Search from './components/users/SearchForm';
 
 const { Header, Content, Footer } = Layout;
 
@@ -32,6 +33,7 @@ function App() {
       </Header>
       <Content className='layout-content' style={{ padding: '10px 50px' }}>
         <h1>My App</h1>
+        <Search />
         <Users users={users} loading={loading} />
       </Content>
       <Footer style={{ textAlign: 'center' }}>
