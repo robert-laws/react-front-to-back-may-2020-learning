@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Menu } from 'antd';
 
@@ -11,8 +12,16 @@ const Navbar = ({ themeColor }) => {
 
   return (
     <Menu onClick={handleClick} selectedKeys={[currentKey.current]} mode='horizontal' theme={themeColor}>
-      <Menu.Item key='home'>Home</Menu.Item>
-      <Menu.Item key='about'>About Us</Menu.Item>
+      <Menu.Item key='home'>
+        <Link to='/'>
+          Home    
+        </Link>
+      </Menu.Item>
+      <Menu.Item key='about'>
+        <Link to='/about' >
+          About Us
+        </Link>  
+      </Menu.Item>
     </Menu>
   )
 }

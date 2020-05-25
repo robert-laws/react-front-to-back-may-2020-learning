@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import { Layout } from 'antd';
 import './App.less';
 import './App.scss';
+import About from './components/pages/About';
 import Navbar from './components/layout/Navbar';
 import MyFooter from './components/layout/MyFooter';
 import Users from './components/users/Users';
@@ -52,21 +54,30 @@ function App() {
   }
 
   return (
-    <Layout className="layout">
-      <Header>
-        <h3 className='logo-title'>App One</h3>
-        <Navbar themeColor={'dark'} />
-      </Header>
-      <Content className='layout-content' style={{ padding: '10px 50px' }}>
-        <h1>My App</h1>
-        <SearchAlert alert={alert} />
-        <Search searchUsers={handleSearch} clearUsers={handleClear} showClear={ users.length > 0 ? true : false } setAlert={handleAlert} />
-        <Users users={users} loading={loading} />
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        <MyFooter author='Hal Hope' year='2020' />
-      </Footer>
-    </Layout>
+    <Router>
+      <Layout className="layout">
+        <Header>
+          <h3 className='logo-title'>App One</h3>
+          <Navbar themeColor={'dark'} />
+        </Header>
+        <Content className='layout-content' style={{ padding: '10px 50px' }}>
+          <h1>My App</h1>
+          <SearchAlert alert={alert} />
+          <Switch>
+            <Route exact path='/' render={props => (
+              <Fragment>
+                <Search searchUsers={handleSearch} clearUsers={handleClear} showClear={ users.length > 0 ? true : false } setAlert={handleAlert} />
+                <Users users={users} loading={loading} />
+              </Fragment>
+            )} />
+            <Route exact path='/about' component={About} />
+          </Switch>          
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          <MyFooter author='Hal Hope' year='2020' />
+        </Footer>
+      </Layout>
+    </Router>
   );
 }
 

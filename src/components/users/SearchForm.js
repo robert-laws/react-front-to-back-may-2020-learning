@@ -11,8 +11,16 @@ const SearchForm = ({ searchUsers, clearUsers, showClear, setAlert }) => {
     setText(event.target.value)
   }
 
-  const handleSubmit = () => {
-    // event.preventDefault();
+  const handleSubmit = event => {
+    doSearch();    
+  }
+
+  const handleEnter = event => {
+    event.preventDefault();
+    doSearch();
+  }
+
+  function doSearch() {
     if(text === '') {
       setAlert('Please enter a search', 'error')
     } else {
@@ -36,6 +44,7 @@ const SearchForm = ({ searchUsers, clearUsers, showClear, setAlert }) => {
           value={text}
           onChange={handleChange}
           onSearch={handleSubmit}
+          onPressEnter={handleEnter}
         />
       </form>
       {
