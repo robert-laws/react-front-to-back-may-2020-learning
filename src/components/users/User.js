@@ -1,17 +1,20 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useContext } from 'react'
 import Repos from '../repos/Repos';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import { Button, Badge } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import GithubContext from '../../context/github/githubContext';
 
+const User = ({ match }) => {
+  const githubContext = useContext(GithubContext);
 
-const User = ({ getUser, getUserRepos, user, repos, loading, match }) => {
+  const { getUser, getUserRepos, loading, user, repos } = githubContext;
 
   useEffect(() => {
     getUser(match.params.username)
     getUserRepos(match.params.username)
+    // eslint-disable-next-line
   }, [])
 
   const { name, avatar_url, company, location, bio, blog, login, html_url, followers, following, public_repos, public_gists, hirable } = user;
@@ -56,14 +59,6 @@ const User = ({ getUser, getUserRepos, user, repos, loading, match }) => {
       </div>
     </Fragment>
   )
-}
-
-User.propTypes = {
-  loading: PropTypes.bool,
-  user: PropTypes.object.isRequired,
-  repos: PropTypes.array.isRequired,
-  getUser: PropTypes.func.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
 }
 
 export default User

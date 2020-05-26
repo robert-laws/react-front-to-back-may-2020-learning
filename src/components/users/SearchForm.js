@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useContext } from 'react'
 import { Input, Button } from 'antd';
+import GithubContext from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/alertContext';
 
 const { Search } = Input;
 
-const SearchForm = ({ searchUsers, clearUsers, showClear, setAlert }) => {
+const SearchForm = () => {
+  const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
+
   const [text, setText] = useState('');
 
   const handleChange = event => {
@@ -22,16 +26,11 @@ const SearchForm = ({ searchUsers, clearUsers, showClear, setAlert }) => {
 
   function doSearch() {
     if(text === '') {
-      setAlert('Please enter a search', 'error')
+      alertContext.setAlert('Please enter a search', 'error')
     } else {
-      searchUsers(text);
+      githubContext.searchUsers(text)
       setText('')
     }
-  }
-
-  const handleClearUsers = () => {
-    clearUsers();
-    setText('');
   }
 
   return (
@@ -48,19 +47,12 @@ const SearchForm = ({ searchUsers, clearUsers, showClear, setAlert }) => {
         />
       </form>
       {
-        showClear && (
-          <Button block style={{ marginTop: '10px' }} onClick={handleClearUsers}>Clear Search</Button>
+        githubContext.users.length > 0 && (
+          <Button block style={{ marginTop: '10px' }} onClick={githubContext.clearUsers}>Clear Search</Button>
         )
       }
     </div>
   )
-}
-
-SearchForm.propTypes = {
-  searchUsers: PropTypes.func.isRequired, 
-  clearUsers: PropTypes.func.isRequired,
-  showClear: PropTypes.bool.isRequired,
-  setAlert: PropTypes.func.isRequired,
 }
 
 export default SearchForm
