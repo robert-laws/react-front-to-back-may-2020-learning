@@ -9,6 +9,7 @@ import './App.less';
 import './App.scss';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
+import NotFound from './components/pages/NotFound';
 import Navbar from './components/layout/Navbar';
 import MyFooter from './components/layout/MyFooter';
 import User from './components/users/User';
@@ -33,6 +34,7 @@ function App() {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/about' component={About} />
                 <Route exact path='/user/:username' component={User} />
+                <Route component={NotFound} />
               </Switch>          
             </Content>
             <Footer style={{ textAlign: 'center' }}>
